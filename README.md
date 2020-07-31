@@ -5,3 +5,4 @@
 * [x] In-line styling per element
 * [x] Coloums and rows with css grid
 * [x] Reactstrap & booltstrap for popup
+* [x] react hooks for state
