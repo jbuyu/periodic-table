@@ -1,8 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import data from "./data/PeriodicTableJSON.json";
 import "./PeriodicTable.css";
-import renderPopup from "./renderPopup";
-import Popup from "reactjs-popup";
+import { Modal, ModalBody, ModalFooter } from "reactstrap";
 
 const colorMap = {
   "noble gas": "#FFBC42",
@@ -14,42 +13,63 @@ const colorMap = {
   lanthanide: "#4AABAF",
   metalloid: "#73D2DE",
 };
-class PeriodicTable extends Component {
-  state = {
-    show: false,
+const PeriodicTable = () => {
+  const [show, setShow] = useState(false);
+  const [summaryData, setSummaryData] = useState("");
+  const handleShow = (summary) => {
+    setShow(!show);
+    setSummaryData(summary);
   };
-  showModal = () => {
-    this.setState({ show: true });
+
+  const handleClose = () => {
+    setShow(!show);
   };
-  hideModal = () => {
-    this.setState({ show: false });
-  };
-  render() {
-    return (
-      <div className="periodic-table">
-        {data.elements.map(
-          ({ number, xpos, ypos, name, symbol, category, summary }) => {
-            return (
-              <div
-                className="element"
-                style={{
-                  gridColumn: xpos,
-                  gridRow: ypos,
-                  borderColor: colorMap[category],
-                }}
-                key={name}
-                onClick={() => this.showModal()}
-                //   onKeyDown={() => setShow(!show)}
-              >
-                <strong>{symbol}</strong>
-                <small className="number">{number}</small>
-                <small className="name">{name}</small>
-              </div>
-            );
-          }
-        )}
+
+  return (
+    <div className="periodic-table">
+      {data.elements.map(
+        ({ number, xpos, ypos, name, symbol, category, summary }) => {
+          return (
+            <div
+              className="element"
+              style={{
+                gridColumn: xpos,
+                gridRow: ypos,
+                borderColor: colorMap[category],
+              }}
+              key={name}
+              onClick={() => handleShow(summary)}
+              //   onKeyDown={() => setShow(!show)}
+            >
+              <strong>{symbol}</strong>
+              <small className="number">{number}</small>
+              <small className="name">{name}</small>
+            </div>
+          );
+        }
+      )}
+      <div>
+        <Modal isOpen={show}>
+          <ModalBody>{summaryData}</ModalBody>
+          <ModalFooter>
+            <button
+              style={{
+                borderRadius: "4px",
+                backgroundColor: "#EC674E",
+                color: "whitesmoke",
+                border: "none",
+                fontWeight: "bold",
+              }}
+              onClick={() => {
+                handleClose();
+              }}
+            >
+              close
+            </button>
+          </ModalFooter>
+        </Modal>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 export default PeriodicTable;

@@ -6,7 +6,12 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Tableu 😇 </h1>
+        <h1>
+          Tableu{" "}
+          <span role="img" aria-label="smiley">
+            😇
+          </span>
+        </h1>
       </header>
       <PeriodicTable />
     </div>
