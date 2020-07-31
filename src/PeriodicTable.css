@@ -9,11 +9,13 @@
 }
 .element {
   background: white;
-  border: 1px solid #aaa;
+  border: 1.25px solid #aaa;
   display: flex;
   position: relative;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
 }
 .element:hover {
   transform: scale(1.25, 1.25);
