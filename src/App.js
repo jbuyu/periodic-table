@@ -5,7 +5,9 @@ import PeriodicTable from "./PeriodicTable";
 function App() {
   return (
     <div className="App">
-      <header>Periodic table</header>
+      <header>
+        <h1>Periodic table</h1>
+      </header>
       <PeriodicTable />
     </div>
   );
