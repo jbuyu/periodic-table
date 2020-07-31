@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import data from "./data/PeriodicTableJSON.json";
 import "./PeriodicTable.css";
+import renderPopup from "./renderPopup";
+import Popup from "reactjs-popup";
 
 const colorMap = {
   "noble gas": "#FFBC42",
@@ -13,25 +15,49 @@ const colorMap = {
   metalloid: "#73D2DE",
 };
 const PeriodicTable = () => {
+  const [show, setShow] = useState(false);
+
   return (
     <div className="periodic-table">
-      {data.elements.map(({ number, xpos, ypos, name, symbol, category }) => {
-        return (
-          <div
-            className="element"
-            style={{
-              gridColumn: xpos,
-              gridRow: ypos,
-              borderColor: colorMap[category],
-            }}
-            key={name}
-          >
-            <strong>{symbol}</strong>
-            <small className="number">{number}</small>
-            <small className="name">{name}</small>
-          </div>
-        );
-      })}
+      {data.elements.map(
+        ({ number, xpos, ypos, name, symbol, category, summary }) => {
+          return (
+            <div
+              className="element"
+              style={{
+                gridColumn: xpos,
+                gridRow: ypos,
+                borderColor: colorMap[category],
+              }}
+              key={name}
+              onClick={() => setShow(!show)}
+              onKeyDown={() => setShow(!show)}
+            >
+              <strong>{symbol}</strong>
+              <small className="number">{number}</small>
+              <small className="name">{name}</small>
+              <div>
+                {/* <Popup
+                  show={show}
+                  trigger={
+                    <span
+                      style={{
+                        width: "64px",
+                        height: "64px",
+                      }}
+                    >
+                      nu
+                    </span>
+                  }
+                  position="right center"
+                >
+                  <div>{summary}</div>
+                </Popup> */}
+              </div>
+            </div>
+          );
+        }
+      )}
     </div>
   );
 };
