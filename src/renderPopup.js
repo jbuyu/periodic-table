@@ -1,11 +1,12 @@
-import React, { Component } from "react";
-import Popup from "reactjs-popup";
-const renderPopup = ({ summery }) => {
+import React from "react";
+const renderPopup = ({ handleClose, show, children }) => {
+  const showHideClassName = show ? "modal display-block" : "modal display-none";
   return (
-    <div>
-      <Popup>
-        <div>{summery}</div>
-      </Popup>
+    <div className={showHideClassName}>
+      <section className="modal-main">
+        {children}
+        <button onClick={handleClose}>close</button>
+      </section>
     </div>
   );
 };
